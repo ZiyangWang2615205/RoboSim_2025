@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Graph</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://fonts.googleapis.com/css?family=Oxanium" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://unpkg.com/tailwindcss@3.3.5/src/css/preflight.css">
+    <link rel="stylesheet" href="/src/styles/graph.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+    <script src="../../src/summary/graph.ts" type="module"></script>
+  </head>
+
+  <body>
+    <navigation-bar></navigation-bar>
+
+    <div class="container">
+        <canvas id="chart"></canvas>
+
+        <button id="switchViewButton">Switch View</button>
+        <button id="yAxisButton" hidden="true">Change Y-Axis View</button>
+    </div>
+  </body>
+</html>

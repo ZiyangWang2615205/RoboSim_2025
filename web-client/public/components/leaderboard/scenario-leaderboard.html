@@ -1,0 +1,38 @@
+<template>
+  <style>
+    @import url("/styles/selection.css");
+    @import url("/styles/table.css");
+  </style>
+
+  <div class="selection">
+    <label for="sort">Sort:</label>
+    <select id="sort">
+      <option value="time">Time Taken</option>
+      <option value="moves">Number of Moves</option>
+    </select>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>
+          <div class="table-header">Name</div>
+        </th>
+        <th>
+          <div class="table-header">Author</div>
+        </th>
+        <th>
+          <div class="table-header">Number of Moves</div>
+        </th>
+        <th>
+          <div class="table-header">Time Taken</div>
+        </th>
+        <th>
+          <div class="table-header">Energy Used</div>
+        </th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+  <pagination-bar></pagination-bar>
+</template>

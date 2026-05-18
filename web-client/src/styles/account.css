@@ -1,0 +1,93 @@
+@import url("variables.css");
+
+html body {
+    font-family: Oxanium;
+    font-weight: 600;
+    background-color: var(--background-colour);
+    color: var(--text-colour);
+}
+
+.user-profile {
+    padding: 10px 30px;
+    border-radius: 15px;
+    text-align: left;
+    max-width: 400px;
+    margin: 30px auto;
+    box-shadow: 0px 0px 16px var(--shadow-colour);
+    animation: pulseEffect 4s infinite ease-in;
+}
+
+@keyframes pulseEffect {
+    0% { box-shadow: 
+        0px 0px 16px 0px var(--shadow-colour),
+        inset 0px 0px 3px var(--shadow-colour); }
+    50% { box-shadow: 
+        0px 0px 16px 12px var(--shadow-colour),
+        inset 0px 0px 3px var(--shadow-colour); }
+    100% { box-shadow: 
+        0px 0px 16px 0px var(--shadow-colour),
+        inset 0px 0px 3px var(--shadow-colour); }
+}
+
+h1 {
+    font-size: 40px;
+    color: var(--header-colour);
+    text-align: center;
+}
+
+.section-container {
+    padding: 10px 30px;
+    border-radius: 15px;
+    text-align: left;
+    max-width: 400px;
+    margin: 5px auto 25px auto;
+    box-shadow: 0px 0px 8px var(--shadow-colour);
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    padding: 5px;
+    font-size: 18px;
+
+    & i {
+      transition: transform 0.3s;
+    }
+}
+
+.hidden {
+    display: none;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: var(--input-colour);
+    color: black;
+}
+
+button:not(.settings-button) {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    background-color: rgb(222, 36, 222);
+    color: var(--text-colour);
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    
+    &:hover {
+        background-color: var(--link-colour);
+        transform: scale(1.02);
+    }
+}

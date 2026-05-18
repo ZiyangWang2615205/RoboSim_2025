@@ -1,0 +1,219 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Playground Mode</title>
+        <meta charset="utf-8">
+        <link href="https://fonts.googleapis.com/css?family=Oxanium" rel="stylesheet">
+        <link rel="stylesheet" href="https://unpkg.com/tailwindcss@3.3.5/src/css/preflight.css">
+        <script src="../src/playground/index.ts" type="module"></script>
+    </head>
+
+    <body id="pg-body">
+        <div id="mode-select">
+            <button id="dashboard-button" onclick="window.location.href = '/dashboard/'">Dashboard</button>
+        </div>
+
+        <div id="welcome-popup-overlay">
+            <div id="welcome-popup">
+                <p>Welcome to the <span class="highlighted">Playground</span> - in here, you can add boxes to create warehouse scenes and scenarios.</p>
+                <p>Press <span class="key">C</span> to toggle controls</p>
+                <p>Press <span class="key">Tab</span> for help</p>
+                <button id="welcome-popup-close">Dismiss</button>
+            </div>
+        </div>
+
+        <div id="clear-confirm-overlay" style="display: none;">
+            <div id="clear-confirm-popup">
+                <p class="clear-confirm-title">Clear Scene?</p>
+                <p>This will <span class="highlighted">remove all boxes</span> from the current scene. This action cannot be undone.</p>
+                <div class="clear-confirm-buttons">
+                    <button id="clear-confirm-cancel">Cancel</button>
+                    <button id="clear-confirm-accept">Clear Scene</button>
+                </div>
+            </div>
+        </div>
+
+        <p id="pop-up-error"></p>
+
+
+
+        <p id="showID"></p>
+
+        <div id="control-menu">
+            <div class="drag-handle" id="control-drag-handle">☰ Controls</div>
+            <div id="control-menu-content">
+                <div class="menu-column box-column" id="add-remove">
+                    <p id="selected-message">Selected Box: <span id="currently-selected">None</span></p>
+                    <button id="remove-box" class="menu-button">Remove Box</button>
+                    <button id="forklift-button" class="menu-button">Forklift Mode: <span id="forklift-mode">On</span></button>
+                    <div id="insert-mode-box" class="menu-button" title="Click for info">
+                        Insert Mode: <span id="insert-mode-status">Off</span>
+                    </div>
+                </div>
+
+                <div class="menu-column scene-column">
+                    <button id="clear-scene" class="menu-button clear-scene">Clear Scene</button>
+                    <button id="save-scene" class="menu-button save-scene">Save Scene</button>
+                    <label class="menu-button load-scene" for="file-input">Load Scene</label>
+                    <input type="file" id="file-input" accept=".json">
+                </div>
+
+
+                <div class="menu-column type-column">
+                    <button id="change-type-2" class="menu-button type-1">Switch to Type 2</button>
+                    <button id="change-type-1" class="menu-button type-2">Switch to Type 1</button>
+                    <button id="displace-withdraw" class="menu-button">Displace/Withdraw</button>
+                    <button id="extend-retract" class="menu-button">Extend/Retract</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="help-panel">
+            <div id="help-panel-content">
+                <div id="help-instructions">
+                    <h4>Camera Controls</h4>
+                    <p>To <span class="highlighted">zoom</span>, use the scroll wheel.</p>
+                    <p>To <span class="highlighted">pan</span>, hold right mouse and move.</p>
+                    <p>To <span class="highlighted">rotate</span>, hold left mouse and move.</p>
+
+                    <h4>Box Controls</h4>
+                    <p>Select Box: Mouse Click</p>
+                    <p>Add Box: <span class="highlighted">Add Box</span> or <span class="key">Enter</span></p>
+                    <p>Remove Box: <span class="highlighted">Remove Box</span> or <span class="key">Shift</span> + <span class="key">Enter</span></p>
+                    <p>Move Box:</p>
+                    <ul>
+                        <li>Up Arrow moves North</li>
+                        <li>Down Arrow moves South</li>
+                        <li>Right Arrow moves East</li>
+                        <li>Left Arrow moves West</li>
+                    </ul>
+                    <div class="type-2">
+                        <p><b>Leg Control:</b></p>
+                        <ul>
+                            <li>Displace/Withdraw: <span class="highlighted">Displace/Withdraw</span> or <span class="key">o</span></li>
+                            <li>Extend/Retract: <span class="highlighted">Extend/Retract</span> or <span class="key">u</span></li>
+                        </ul>
+                    </div>
+
+                    <h4>Insert Mode</h4>
+                    <p>Hold <span class="key">Space</span> to enter Insert Mode. While held:</p>
+                    <ul>
+                        <li><span class="highlighted">Left click</span> to place a box at the cursor</li>
+                        <li><span class="highlighted">Right click</span> to remove the targeted box</li>
+                    </ul>
+                    <p class="highlighted">Camera controls are locked during Insert Mode.</p>
+
+                    <h4>Forklift Mode</h4>
+                    <div class="type-1">
+                        <p>In Forklift Mode, you can move a stack of boxes by selecting the bottom box (box on the ground), simulating a forklift.
+                        This makes it easier to build configurations of boxes.
+                        </p>
+                        <p class="highlighted">
+                            Note: When building algorithms to move boxes, you cannot move stacks of boxes. This is purely to
+                            help with building scenes in the Playground.
+                        </p>
+                        <p>Toggle with <span class="key">Shift</span> + <span class="key">F</span></p>
+                    </div>
+                    <p class="type-2">This feature is unavailable for Type 2 boxes.</p>
+
+                    <div class="type-1">
+                        <h4>Rules & Restrictions</h4>
+                        <ul>
+                            <li>You cannot move a box if it has boxes on top of it (except if moving the bottom box of a stack in <span class="highlighted">Forklift Mode</span>)</li>
+                            <li>You cannot move a box if the <span class="highlighted">height difference</span> between the current box position and new box position is greater than 1.</li>
+                            <li>You cannot remove a box if it has boxes on top of it.</li>
+                        </ul>
+                    </div>
+
+                    <h4>Scene Controls</h4>
+                    <p>Clear Scene: <span class="highlighted">Removes</span> all boxes. <span class="key">Shift</span> + <span class="key">C</span></p>
+                    <p>Save Scene: <span class="highlighted">Saves</span> the scene as a .json file. <span class="key">Shift</span> + <span class="key">S</span></p>
+                    <p>Load Scene: <span class="highlighted">Loads</span> and displays an existing saved scene. <span class="key">Shift</span> + <span class="key">L</span></p>
+                    <p>Reset State: <span class="highlighted">Resets</span> the start and end states for a custom scenario. <span class="key">Shift</span> + <span class="key">R</span></p>
+
+                    <h4>Custom Scenarios</h4>
+                    <p>You can create <span class="highlighted">custom scenarios</span> from the current scene using the <span class="highlighted">Save Scene as Scenario</span> button.</p>
+                    <ul>
+                        <li>Set the number of <span class="highlighted">target boxes</span> you want to move.</li>
+                        <li>For each target, enter the <span class="highlighted">box ID</span>. The current location will be shown automatically.</li>
+                        <li>Provide the <span class="highlighted">target location</span> (x, y, z) for each box.</li>
+                        <li>Name the scenario and <span class="highlighted">download</span> it.</li>
+                    </ul>
+                    <p>You can load a custom scenario in your algorithm's Python file in order to test your algorithm on it.</p>
+
+                    <h4>Box Type Controls</h4>
+                    <p>You can switch between the 2 box types in the Playground by using the <span class="highlighted">Switch to Type ...</span> button,
+                    or by toggling with <span class="key">Shift</span> + <span class="key">T</span>
+                    </br>The default is Type 1.</p>
+                </div>
+
+                <div id="help-actions">
+                    <h4>Scenarios</h4>
+                    <p>A <span class="highlighted">scene</span> is a layout of boxes. A <span class="highlighted">scenario</span> adds target locations for selected boxes, creating a challenge for your algorithm to solve. Use the scenario wizard to create scenarios from the current scene. </p>
+                    <button class="help-action-btn" id="help-save-scenario">Scenario Wizard</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="scenario-wizard-overlay" style="display: none;">
+            <div id="scenario-wizard">
+                <div class="wizard-step" id="wizard-step-count">
+                    <p class="wizard-title">Save Scene as Scenario</p>
+                    <p>How many boxes need target locations?</p>
+                    <div class="wizard-input-row">
+                        <label>Number of targets:
+                            <input type="number" id="wizard-target-count" min="1" value="1">
+                        </label>
+                    </div>
+                    <div class="wizard-buttons">
+                        <button id="wizard-cancel" class="wizard-btn wizard-btn-cancel">Cancel</button>
+                        <button id="wizard-next-count" class="wizard-btn wizard-btn-next">Next</button>
+                    </div>
+                </div>
+
+                <div class="wizard-step" id="wizard-step-box" style="display: none;">
+                    <p class="wizard-title">Target <span id="wizard-box-index">1</span> of <span id="wizard-box-total">1</span></p>
+                    <div class="wizard-input-row">
+                        <label>Box ID:
+                            <input type="number" id="wizard-box-id" min="1">
+                        </label>
+                        <button id="wizard-lookup-box" class="wizard-btn wizard-btn-small">Look up</button>
+                    </div>
+                    <p id="wizard-current-location" class="wizard-info"></p>
+                    <p class="wizard-label">Target location:</p>
+                    <div class="wizard-input-row">
+                        <label>X: <input type="number" id="wizard-target-x" min="0"></label>
+                        <label>Y: <input type="number" id="wizard-target-y" min="0"></label>
+                        <label>Z: <input type="number" id="wizard-target-z" min="0"></label>
+                    </div>
+                    <div class="wizard-buttons">
+                        <button id="wizard-prev-box" class="wizard-btn wizard-btn-cancel">Back</button>
+                        <button id="wizard-next-box" class="wizard-btn wizard-btn-next">Next</button>
+                    </div>
+                </div>
+
+                <div class="wizard-step" id="wizard-step-name" style="display: none;">
+                    <p class="wizard-title">Name Your Scenario</p>
+                    <div class="wizard-input-row">
+                        <label>Scenario name:
+                            <input type="text" id="wizard-scenario-name" placeholder="My Scenario">
+                        </label>
+                    </div>
+                    <div id="wizard-summary"></div>
+                    <div class="wizard-buttons">
+                        <button id="wizard-prev-name" class="wizard-btn wizard-btn-cancel">Back</button>
+                        <button id="wizard-download" class="wizard-btn wizard-btn-download">Download</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="dimensions-panel">
+            <p><b>Dimensions</b></p>
+            <label>W: <input id="dim-width" type="number" min="1" max="100" value="20"></label>
+            <label>H: <input id="dim-height" type="number" min="1" max="100" value="100"></label>
+            <label>D: <input id="dim-depth" type="number" min="1" max="100" value="20"></label>
+            <button id="apply-dimensions" class="menu-button">Apply</button>
+        </div>
+    </body>
+</html>

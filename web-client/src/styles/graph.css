@@ -1,0 +1,121 @@
+@import url("variables.css");
+
+body {
+    font-family: Oxanium;
+    font-weight: 600;
+    background-color: var(--background-colour);
+    color: var(--text-colour);
+}
+
+.container {
+    max-width: 75%;
+    margin: 20px auto;
+    padding: 20px;
+    background: var(--background-colour);
+    box-shadow: 0px 0px 16px var(--shadow-colour);
+    border-radius: 8px;
+    animation: pulseEffect 4s infinite ease-in;
+}
+
+@keyframes pulseEffect {
+    0% { box-shadow: 
+        0px 0px 16px 0px var(--shadow-colour),
+        inset 0px 0px 3px var(--shadow-colour); }
+    50% { box-shadow: 
+        0px 0px 16px 12px var(--shadow-colour),
+        inset 0px 0px 3px var(--shadow-colour); }
+    100% { box-shadow: 
+        0px 0px 16px 0px var(--shadow-colour),
+        inset 0px 0px 3px var(--shadow-colour); }
+}
+
+#graph-options {
+    margin-left: auto;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+button:not(.settings-button) {
+    color: var(--neon-blue);
+    margin-left: auto;
+    margin-right: auto;
+    padding: 8px;
+    border-radius: 200px;
+    cursor: pointer;
+    box-shadow: 0px 0px 8px var(--neon-blue);
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+
+    &:hover {
+        box-shadow: 0px 0px 4px 4px var(--neon-blue);
+        transform: scale(1.05);
+    }
+
+    &#yAxisButton {
+        margin-left: 12px;
+    }
+}
+
+select {
+    padding: 5px 50px 5px 10px;
+    margin-right: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: var(--background-colour);
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+h1 {
+    font-size: 40px;
+    font-weight: bolder;
+    color: var(--header-colour);
+}
+
+.multiselect {
+    margin: 3px;
+    padding: 5px;
+}
+
+.selectBox {
+    position: relative;
+
+    & select {
+        width: 260px;
+        min-width: fit-content;
+        font-weight: bold;
+    }
+}
+
+.overSelect {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+
+.checkboxes {
+    width: 260px;
+    display: none;
+    position: absolute;
+    border: 1px #dadada solid;
+    background-color: var(--background-colour);
+
+    & label {
+        display: block;
+
+        &:hover {
+            background-color: #1e90ff;
+        }
+    }
+}
+
+/* needed for error messages generated in graph.ts */
+.error-msg {
+    color: red;
+}

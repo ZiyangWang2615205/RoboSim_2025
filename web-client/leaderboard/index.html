@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Leaderboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oxanium"/>
+    <link rel="stylesheet" href="https://unpkg.com/tailwindcss@3.3.5/src/css/preflight.css">
+    <link rel="stylesheet" href="../src/styles/leaderboard.css"/>
+    <script src="../src/leaderboard/main.ts" type="module"></script>
+  </head>
+
+  <body>
+    <navigation-bar></navigation-bar>
+
+    <div class="container">
+      <div class="leaderboard-info">
+        <h1>Leaderboard</h1>
+        <p>
+          This page shows different sets of benchmarking across different scenarios.
+        </p>
+      </div>
+
+      <div class="header-controls" >
+        <button id="type-toggle-btn" class="neon-button"> Switch to Type 2</button>
+
+        <button class="neon-button" onclick="location.href='/leaderboard/graph/'" type="button">Generate Graph</button>
+      </div>
+
+      <div class="current-algorithm-panel">
+        <div class="header-row">
+            <h2>Current Algorithm (running)</h2>
+            <button id="toggle-instructions-btn" class="text-link">How to Connect ▾</button>
+        </div>
+
+        <div id="live-status-content">
+          <p>Awaiting connection...</p>
+        </div>
+
+        <div id="instructions-panel">
+          <h3>Connection Guide</h3>
+          <p>1. Import the AlgorithmClient into your Python script.</p>
+          <p>2. Use your unique token to authenticate.</p>
+          <p>3. Run your script to see live metrics appear here.</p>
+        </div>
+      </div>
+
+      <div class="benchmarking-filters">
+        
+        <div class="toggle-group" id="user-toggle-group">
+          <button class="toggle-option active" data-value="my">My</button>
+          <button class="toggle-option" data-value="all">All</button>
+        </div>
+
+        <div class="toggle-group" id="status-toggle-group">
+          <button class="toggle-option active" data-value="successful">Successful</button>
+          <button class="toggle-option" data-value="failed">Failed</button>
+        </div>
+
+      </div>
+
+      <!-- benchmarking table -->
+      <div class="benchmarking-table-container">
+        
+        <div class="benchmarking-header">
+          <div class="col-check">✔</div>
+          <div class="col-name sortable">Alg. Name ↕</div>
+          <div class="col-author sortable">Author ↕</div>
+          <div class="col-date sortable">Date & Time ↕</div>
+          <div class="col-scenario sortable">Scenario ↕</div>
+          <div class="col-kpi sortable"># Moves ↕</div>
+          <div class="col-kpi sortable"># Energy ↕</div>
+          <div class="col-kpi sortable"># Time ↕</div>
+          <div class="col-icon">Finish</div>
+          <div class="col-icon">Replay</div>
+          <div class="col-icon">Delete</div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

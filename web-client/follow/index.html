@@ -1,0 +1,81 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Following Algorithm Client</title>
+    <meta charset="utf-8" />
+    <link href="https://fonts.googleapis.com/css?family=Oxanium" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://unpkg.com/tailwindcss@3.3.5/src/css/preflight.css">
+    <script src="../src/follow/main.ts" defer type="module"></script>
+  </head>
+
+  <body>
+      <button id="top-down-view-button">
+        Top-Down View
+      </button>
+			<button id="following-view-button">
+        Following View
+      </button>
+      <button id="transparency-button">
+        Transparent box
+      </button>
+      <select id="traveller-target-select" aria-label="Traveller target">
+        <option value="select">Select BOX ID</option>
+      </select>
+
+    <div id="view-status-message" aria-live="polite"></div>
+
+    <div id="mode-select">
+      <button id="dashboard-button" onclick="window.location.href = '/dashboard/'">
+        Dashboard
+      </button>
+    </div>
+
+    <details id="instructions-menu">
+      <summary>Instructions</summary>
+      <div class="instructions-content">
+        <p>
+          <span class="highlighted">Left Click & Drag</span> Rotating view
+        </p>
+        <p>
+          <span class="highlighted">Right Click & Drag</span> Panning view
+        </p>
+        <p>
+          <span class="highlighted">Mouse Wheel Scroll</span> Zoom in/out
+        </p>
+        <p>
+          Use the dropdown in the bottom-right corner to choose which traveller box ID to target.
+        </p>
+        <p>
+          <span class="highlighted">Top-Down View</span> places the camera directly above the selected target.
+        </p>
+
+        <p>
+          <span class="highlighted">Following View</span> locks the camera to the selected target and follows it in third-person. Can rotate view by left click & drag.
+        </p>
+
+        <p>
+          <span class="highlighted">Transparent Box</span> makes all boxes transparent except the traveller box.
+        </p>
+
+        <p>
+          <span class="highlighted">Play</span> pauses or resumes the replay. <span class="note">(Not available for live view.)</span>
+        </p>
+        
+      </div>
+    </details>
+
+    <div id="algorithm-info">
+      <p id="algorithm-name"></p>
+      <p id="algorithm-author"></p>
+    </div>
+
+    <div id="error">
+      <p id="error-content">Hello!</p>
+      <button id="close-error">
+        <div class="icon">
+          <close-icon></close-icon>
+        </div>
+      </button>
+    </div>
+  </body>
+</html>

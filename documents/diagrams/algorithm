@@ -1,0 +1,8 @@
+function next_move()
+    get a list of all possible moves
+    define move_set
+    while there are moves left
+        pick a move
+        if move is compatible with move_set
+            add to move_set
+    return move_set

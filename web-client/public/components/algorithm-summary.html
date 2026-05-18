@@ -1,0 +1,56 @@
+<template>
+  <style>
+    table {
+      width: 100%;
+      font-family: Oxanium;
+      box-shadow: 0px 0px 16px var(--shadow-colour);
+      border: 1px solid var(--shadow-colour);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    table th,
+    table td {
+      text-align: left;
+      padding: 12px;
+      border-right: 1px solid var(--shadow-colour);
+      border-bottom: 1px solid var(--shadow-colour);
+      box-shadow: 0px 0px 8px var(--shadow-colour);
+
+      &:last-child {
+        border-right: none;
+      }
+    }
+
+    a {
+      text-decoration: none;
+      color: var(--link-colour);
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    .summary-info {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+    }
+    
+  </style>
+  <div class="summary-info">
+    <p>Name: <slot name="name"></slot></p>
+    <p>Author: <slot name="author"></slot></p>
+    <p>State: <slot name="state"></slot></p>
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>Scenario</th>
+        <th>State</th>
+        <th>Energy Used</th>
+        <th>View</th>
+      </tr>
+    </thead>
+  </table>
+</template>

@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Graph</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://fonts.googleapis.com/css?family=Oxanium" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://unpkg.com/tailwindcss@3.3.5/src/css/preflight.css">
+    <link rel="stylesheet" href="../../src/styles/graph.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+    <script src="../../src/leaderboard/graph.ts" type="module"></script>
+  </head>
+
+  <body>
+    <navigation-bar></navigation-bar>
+
+    <div class="container">
+        <canvas id="chart"></canvas>
+
+        <div id="graph-options">
+            <div class="selectBox">
+                <div class="multiselect">
+                    <select id="selectScenarios">
+                      <option hidden>Select Scenario</option>
+                      <option>All Scenarios</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="selectBox">
+                <div class="multiselect">
+                    <select id="selectYAxis">
+                        <option hidden>Select Y-Axis Option/s</option>
+                        <option>Number of Moves</option>
+                        <option>Time Taken</option>
+                        <option>Energy Used</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="multiselect">
+              <div class="selectBox" id="selectAC">
+                  <select>
+                      <option>Select Algorithms</option>
+                  </select>
+                  <div class="overSelect" id="overAC"></div>
+              </div>
+              <div class="checkboxes" id="checkboxesAC"></div>
+          </div> 
+
+          <button id="generateButton">Generate Graph</button>
+        </div>
+    </div>
+  </body>
+</html>

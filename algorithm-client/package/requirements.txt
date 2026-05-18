@@ -1,0 +1,4 @@
+typing-extensions
+python-dotenv
+websockets
+asyncio

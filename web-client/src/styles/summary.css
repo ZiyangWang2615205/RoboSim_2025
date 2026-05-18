@@ -1,0 +1,56 @@
+@import url("variables.css");
+
+body {
+    font-family: Oxanium;
+    font-weight: 600;
+    background-color: var(--background-colour);
+    color: var(--text-colour);
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 30px;
+    border-radius: 14px;
+    box-shadow: 0px 0px 16px var(--shadow-colour);
+    animation: pulseEffect 4s infinite ease-in;
+}
+
+@keyframes pulseEffect {
+    0% { box-shadow: 
+        0px 0px 16px 0px var(--shadow-colour),
+        inset 0px 0px 3px var(--shadow-colour); }
+    50% { box-shadow: 
+        0px 0px 16px 12px var(--shadow-colour),
+        inset 0px 0px 3px var(--shadow-colour); }
+    100% { box-shadow: 
+        0px 0px 16px 0px var(--shadow-colour),
+        inset 0px 0px 3px var(--shadow-colour); }
+}
+
+h1 {
+    font-size: 40px;
+    font-weight: 900;
+    color: var(--header-colour);
+    text-align: center;
+}
+
+#generateButton {
+    color: var(--neon-blue);
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    padding: 8px;
+    font-size: 19px;
+    border-radius: 200px;
+    cursor: pointer;
+    box-shadow: 0px 0px 8px var(--neon-blue);
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+
+    &:hover {
+        box-shadow: 0px 0px 4px 4px var(--neon-blue);
+        transform: scale(1.05);
+    }
+}

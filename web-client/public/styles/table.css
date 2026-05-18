@@ -1,0 +1,29 @@
+/* Styling for a table element */
+
+.table-header {
+  display: flex;
+  align-items: center;
+}
+
+table {
+  width: 100%;
+  box-shadow: 0px 0px 16px var(--shadow-colour);
+  border: 1px solid var(--shadow-colour);
+  border-radius: 8px;
+  overflow: auto;
+  border-color: var(--shadow-colour);
+  border-collapse: separate;
+
+  & th,
+  td {
+    text-align: left;
+    padding: 12px;
+    border-right: 1px solid var(--shadow-colour);
+    border-bottom: 1px solid var(--shadow-colour);
+    box-shadow: 0px 0px 8px var(--shadow-colour);
+
+    &:last-child {
+      border-right: none;
+    }
+  }
+}

@@ -1,0 +1,42 @@
+name: python-documentation
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+jobs:
+  docs:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./algorithm-client/package
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: 3.11
+
+      - name: Install dependencies
+        run: pip install sphinx furo myst-parser hatch
+
+      - name: Build Python package
+        run: hatch build
+
+      - name: Install package
+        run: |
+          pip install .
+
+      - name: Build docs
+        run: |
+          sphinx-build -M html docs/source docs/build
+
+      - name: Deploy to GitHub pages
+        uses: JamesIves/github-pages-deploy-action@v4.5.0
+        with:
+          clean: false
+          branch: gh-pages
+          folder: ./algorithm-client/package/docs/build/html

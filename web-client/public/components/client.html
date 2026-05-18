@@ -1,0 +1,172 @@
+<template id="client-template">
+  <style>
+    #client {
+      padding: 8px;
+      border-radius: 8px;
+      margin-left: auto;
+      margin-right: auto;
+      margin-top: 16px;
+      margin-bottom: 16px;
+      display: flex;
+      box-shadow: 
+        0px 0px 8px var(--shadow-colour),
+        inset 0px 0px 2px var(--shadow-colour);
+      transition: transform 0.3s ease;
+
+      &:has(.title:hover) {
+        transform: scale(1.05);
+        box-shadow: 
+          0px 0px 8px var(--link-colour),
+          inset 0px 0px 2px var(--link-colour);
+      }
+    }
+
+    a {
+      text-decoration: none;
+      color: var(--text-colour);
+    }
+
+    #main {
+      width: 75%;
+      margin-left: auto;
+      margin-right: auto;
+      position: relative;
+    }
+
+    .title {
+      width: 50%;
+      text-align: left;
+      padding: 0px 8px;
+
+      &:hover {
+        color: var(--link-colour);
+      }
+    }
+
+    #progress {
+      flex-grow: 1;
+      font-size: 13px;
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
+      & > p {
+        margin: 0;
+      }
+    }
+
+    #completed {
+      margin-top: auto;
+      color: #15ff00;
+    }
+
+    #failed {
+      color: #fa2323;
+      margin-bottom: auto;
+    }
+
+    #skipped {
+      color: #e0dad5;
+    }
+
+    button {
+      all: unset;
+    }
+
+    #menu-button-container {
+      text-align: right;
+      padding: 0px 8px;
+      vertical-align: middle;
+      justify-content: flex-end;
+      display: flex;
+
+      & > div {
+        margin: auto 0;
+      }
+    }
+
+    #menu-button {
+      margin: auto 0;
+      padding: 1px;
+      border-radius: 6px;
+
+      &:hover {
+        color: grey;
+      }
+    }
+
+    ellipses-icon {
+      --icon-size: 25px;
+    }
+
+    /* Dropdown menu */
+    .menu {
+      position: absolute;
+      background-color: var(--background-colour);
+      min-width: 60px;
+      box-shadow:
+        0 4px 6px -1px rgb(0 0 0 / 0.1),
+        0 2px 4px -2px rgb(0 0 0 / 0.1);
+      z-index: 1;
+      /* Align right */
+      right: 0;
+      border-radius: 6px;
+      margin-top: 8px;
+      box-shadow: 0px 0px 8px var(--shadow-colour);
+
+      & a:hover {
+        color: var(--link-colour);
+        text-shadow: 0px 0px 1px var(--link-colour);
+      }
+    }
+
+    .menu-item {
+      display: block;
+      padding: 8px 16px;
+      text-align: left;
+      font-size: 14px;
+    }
+
+    #state-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-right: 8px;
+    }
+
+    #state-container ::slotted(*) {
+      --icon-size: 20px;
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
+  <div id="main">
+    <div id="client">
+      <div id="state-container"><slot name="state"></slot></div>
+      <a class="summary-link title">
+        <p id="name">
+          <slot name="properties"></slot>
+        </p>
+      </a>
+      <div id="progress">
+        <p id="completed"><slot name="completed"></slot> completed</p>
+        <p id="skipped"><slot name="skipped"></slot> skipped</p>
+        <p id="failed"><slot name="failed"></slot> failed</p>
+      </div>
+      <div id="menu-button-container" data-testid="dropdown">
+        <div>
+          <button id="menu-button">
+            <ellipses-icon></ellipses-icon>
+          </button>
+          <div class="menu hidden">
+            <a class="menu-item summary-link">Summary</a>
+            <a class="menu-item follow-link">Follow</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>

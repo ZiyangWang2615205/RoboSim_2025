@@ -1,0 +1,59 @@
+name: Bug Report
+description: This issue focuses on reporting a bug in the project.
+title: "[Bug]: "
+labels: ["bug"]
+projects: ["spe-uob/2025-RoboSim"]
+
+body:
+  - type: textarea
+    id: expected-behavior
+    attributes:
+      label: Expected Behavior
+      description: What is supposed to happen?
+      placeholder: 
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual-behavior
+    attributes:
+      label: Actual Behavior
+      description: What happens instead?
+      placeholder: 
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps-to-reproduce
+    attributes:
+      label: Steps to Reproduce the Bug
+      description: Please list the steps required to reproduce the bug.
+      placeholder: |
+        1. Go to '...'
+        2. Click on '...'
+        3. Scroll down to '...'
+        4. See error
+    validations:
+      required: true
+
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Severity
+      description: How much does this bug affect your work?
+      options:
+        - "Critical (Application is unusable)"
+        - "Major (Feature is broken)"
+        - "Minor (Annoyance / Glitch)"
+        - "Cosmetic (Typo / Visual)"
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional-information
+    attributes:
+      label: Additional Information
+      description: Any other relevant information, logs, or screenshots.
+      placeholder: Please also provide the os and environment details here.
+    validations:
+      required: false

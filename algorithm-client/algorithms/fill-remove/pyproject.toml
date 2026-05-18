@@ -1,0 +1,58 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "fill-remove"
+dynamic = ["version"]
+description = 'A simple algorithm that moves boxes one at a time'
+readme = "README.md"
+requires-python = ">=3.8"
+keywords = []
+authors = [{ name = "Ashby Thorpe", email = "ashbythorpe@gmail.com" }]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: Implementation :: CPython",
+  "Programming Language :: Python :: Implementation :: PyPy",
+]
+dependencies = [
+  "click",
+  "algorithm-client @ {root:uri}/../../package",
+  "heapdict",
+]
+
+[project.scripts]
+fill-remove = "fill_remove.cli:fill_remove"
+
+[tool.hatch.version]
+path = "src/fill_remove/__about__.py"
+
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[tool.hatch.envs.types]
+extra-dependencies = ["mypy>=1.0.0"]
+[tool.hatch.envs.types.scripts]
+check = "mypy --install-types --non-interactive {args:src/fill_remove tests}"
+
+[tool.coverage.run]
+source_pkgs = ["fill_remove", "tests"]
+branch = true
+parallel = true
+omit = ["src/fill_remove/__about__.py"]
+
+[tool.ruff.lint]
+ignore = ["T201"]
+
+[tool.coverage.paths]
+fill_remove = ["src/fill_remove", "*/fill-remove/src/fill_remove"]
+tests = ["tests", "*/fill-remove/tests"]
+
+[tool.coverage.report]
+exclude_lines = ["no cov", "if __name__ == .__main__.:", "if TYPE_CHECKING:"]

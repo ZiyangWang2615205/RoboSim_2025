@@ -1,0 +1,9 @@
+:root {
+    --background-colour: rgb(18, 0, 24);
+    --text-colour: white;
+    --shadow-colour: rgba(241, 26, 209, 0.633);
+    --neon-blue: rgb(0, 255, 247);
+    --link-colour: rgb(255, 43, 223);
+    --header-colour: rgb(209, 0, 209);
+    --input-colour: rgb(241, 232, 232);
+}

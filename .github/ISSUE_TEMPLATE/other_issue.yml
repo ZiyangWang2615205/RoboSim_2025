@@ -1,0 +1,22 @@
+name: Other Issue
+description: This issue is for topics not covered by other issue templates.
+projects: ["spe-uob/2025-RoboSim"]
+
+body:
+  - type: textarea
+    id: issue-summary
+    attributes:
+      label: "Issue Summary"
+      description: A clear and concise description of what the issue is.
+      placeholder: 
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional-information
+    attributes:
+      label: Additional Information
+      description: Any other relevant information, logs, or screenshots.
+      placeholder:
+    validations:
+      required: false

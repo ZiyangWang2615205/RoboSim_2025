@@ -1,0 +1,38 @@
+<template>
+  <style>
+    div {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      gap: 16px;
+    }
+
+    button {
+      font-family: Oxanium;
+      font-weight: 600;
+      background-color: var(--background-colour);
+      color: white;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 16px;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0px 0px 4px var(--shadow-colour);
+      transition: transform 0.3s ease;
+
+      &:hover {
+        background-color: #3f003f;
+        transform: scale(1.1);
+      }
+    }
+
+    .selected {
+      background-color: #3f003f;
+    }
+  </style>
+  <div>
+    <button id="user">Your Algorithms</button>
+    <button id="all">All Algorithms</button>
+  </div>
+</template>

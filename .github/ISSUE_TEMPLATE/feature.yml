@@ -1,0 +1,36 @@
+name: Feature Request
+description: This issue focuses on a feature or enhancement for the project.
+title: "[Feature]: "
+labels: ["feature"]
+projects: ["spe-uob/2025-RoboSim"]
+
+body:
+  - type: textarea
+    id: problem-summary
+    attributes:
+      label: "Feature Summary"
+      description: A clear and concise description of what the feature is.
+      placeholder: 
+    validations:
+      required: true
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: "Priority"
+      description: What is the priority level of this feature request?
+      options:
+        - "Low"
+        - "Medium"
+        - "High"
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional-information
+    attributes:
+      label: Additional Information
+      description: Any other relevant information, logs, or screenshots.
+      placeholder:
+    validations:
+      required: false

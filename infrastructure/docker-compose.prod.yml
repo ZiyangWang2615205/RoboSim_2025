@@ -1,0 +1,19 @@
+services:
+  app:
+    image: "ghcr.io/spe-uob/2025-robosim/robosim-app:${APP_TAG:-latest}"
+    container_name: robosim-app
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      PGHOST: ${PGHOST}
+      PGPORT: "${PGPORT}"
+      PGDATABASE: ${PGDATABASE}
+      PGUSER: ${PGUSER}
+      PGPASSWORD: ${PGPASSWORD}
+
+      #leave for migration
+      FLYWAY_USER: ${FLYWAY_USER}
+      FLYWAY_PASSWORD: ${FLYWAY_PASSWORD}
+    ports:
+      - "127.0.0.1:3000:3000"
+      - "127.0.0.1:7071:7071"

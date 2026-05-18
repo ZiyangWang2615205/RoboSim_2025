@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Algorithm Client Instructions</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://unpkg.com/tailwindcss@3.3.5/src/css/preflight.css" />
+    <link rel="stylesheet" href="../src/styles/instructions.css" />
+    <link href="https://fonts.googleapis.com/css?family=Oxanium" rel="stylesheet" />
+    <script src="../src/instructions.ts" type="module"></script>
+  </head>
+
+  <body>
+    <navigation-bar></navigation-bar>
+
+    <div class="container">
+      <h1>Algorithm Client Instructions</h1>
+
+      <p class="page-intro">
+        The Algorithm Client Python package provides tools to test algorithms and
+        submit them to the server. You can read the required documentation
+        directly below.
+      </p>
+
+      <div class="doc-tabs">
+        <button class="doc-tab active" data-doc="/docs/getting-started.md">
+          Getting Started
+        </button>
+        <button class="doc-tab" data-doc="/docs/submission-format.md">
+          Submission Format
+        </button>
+        <button class="doc-tab" data-doc="/docs/FAQ.md">
+          FAQ
+        </button>
+      </div>
+
+      <div class="doc-actions">
+        <a
+          id="download-link"
+          class="docs-link"
+          href="/docs/getting-started.md"
+          download
+        >
+          Download current .md
+        </a>
+      </div>
+
+      <div id="doc-content" class="doc-content">
+        Select a document to view its contents here.
+      </div>
+    </div>
+  </body>
+</html>

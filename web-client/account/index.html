@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Profile</title>
+    <link rel="stylesheet" href="https://unpkg.com/tailwindcss@3.3.5/src/css/preflight.css">
+    <link rel="stylesheet" href="../src/styles/account.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Oxanium"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+  </head>
+
+  <body>
+    <navigation-bar></navigation-bar>
+
+    <div class="user-profile">
+      <h1>User Profile</h1>
+
+      <div class="section-container">
+        <div class="section-header">
+          <span
+            ><strong>Username:</strong> <span id="display-username"></span
+          ></span>
+          <i class="fa fa-chevron-down"></i>
+        </div>
+        <div class="section hidden">
+          <input type="text" id="new-username" placeholder="New Username" />
+          <button id="update-username">Update Username</button>
+        </div>
+      </div>
+
+      <div class="section-container">
+        <div class="section-header">
+          <span><strong>Name:</strong> <span id="display-name"></span></span>
+          <i class="fa fa-chevron-down"></i>
+        </div>
+        <div class="section hidden">
+          <input type="text" id="new-name" placeholder="New Name" />
+          <button id="update-name">Update Name</button>
+        </div>
+      </div>
+
+      <div class="section-container">
+        <div class="section-header">
+          <span><strong>Change Password</strong></span>
+          <i class="fa fa-chevron-down"></i>
+        </div>
+        <div class="section hidden">
+          <input type="password" id="old-password" placeholder="Old Password" />
+          <input type="password" id="new-password" placeholder="New Password" />
+          <input
+            type="password"
+            id="confirm-password"
+            placeholder="Confirm Password"
+          />
+          <button id="update-password">Update Password</button>
+        </div>
+      </div>
+
+      <div class="section-container">
+        <div class="section-header">
+          <span><strong>Token</strong></span>
+          <i class="fa fa-chevron-down"></i>
+        </div>
+        <div class="section hidden">
+          <p>Your Token:</p>
+          <p id="token-text" data-testid="token"></p>
+          <button id="copy-token">Copy Token to Clipboard</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="../src/account/index.ts" type="module"></script>
+  </body>
+</html>

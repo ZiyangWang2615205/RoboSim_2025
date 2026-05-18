@@ -1,0 +1,51 @@
+<template>
+  <style>
+    #container {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      gap: 16px;
+      margin-top: 2rem;
+    }
+
+    button {
+      all: unset;
+      color: white;
+      font: Oxanium;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 16px;
+      border-style: solid;
+      border-width: 1px;
+      border-color: transparent;
+    }
+
+    .selected {
+      background-color: #3f003f;
+      pointer-events: none;
+    }
+
+    .disabled {
+      color: #e978f4;
+      pointer-events: none;
+    }
+
+    button:hover {
+      border-color: rgb(0, 255, 247);
+      cursor: pointer;
+    }
+
+    .selected:hover,
+    .disabled:hover {
+      border-color: transparent;
+    }
+
+    chevron-left-icon,
+    chevron-right-icon {
+      margin: auto;
+      --icon-size: 15px;
+    }
+  </style>
+  <div id="container"></div>
+</template>

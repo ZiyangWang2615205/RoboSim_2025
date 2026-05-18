@@ -1,0 +1,2 @@
+ALTER TABLE Sessions
+ALTER COLUMN expiry TYPE BIGINT;

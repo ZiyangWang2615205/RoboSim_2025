@@ -1,0 +1,93 @@
+@import url("variables.css");
+
+html body {
+    font-family: Oxanium;
+    font-weight: 600;
+    background-color: var(--background-colour);
+    color: var(--text-colour);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.auth-form {
+    padding: 10px 30px;
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0px 0px 16px var(--shadow-colour);
+    border-radius: 12px;
+    animation: pulseEffect 4s infinite ease-in;
+}
+
+@keyframes pulseEffect {
+    0% { box-shadow: 
+        0px 0px 16px 0px var(--shadow-colour),
+        inset 0px 0px 3px var(--shadow-colour); }
+    50% { box-shadow: 
+        0px 0px 16px 12px var(--shadow-colour),
+        inset 0px 0px 3px var(--shadow-colour); }
+    100% { box-shadow: 
+        0px 0px 16px 0px var(--shadow-colour),
+        inset 0px 0px 3px var(--shadow-colour); }
+}
+
+.auth-section {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+    background-color: var(--input-colour);
+    color: black;
+}
+
+
+#register-btn, #login-btn {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: rgb(222, 36, 222);
+    color: var(--text-colour);
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+
+    &:hover {
+        background-color: var(--link-colour);
+        transform: scale(1.02);
+    }
+}
+  
+
+h2 {
+    color: var(--header-colour);
+    font-size: 32px;
+    margin-bottom: 5px;
+}
+
+a {
+    text-decoration: none; 
+    margin: 5px 20px; 
+    border-radius: 5px; 
+    display: inline-block; 
+    text-align: center;
+}
+
+#popupText {
+    color: red;
+}
+
+#successful-register {
+    display: none; 
+    color: green;
+}

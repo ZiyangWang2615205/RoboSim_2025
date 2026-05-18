@@ -1,0 +1,20 @@
+services:
+  flyway:
+    image: flyway/flyway:latest
+    # if postgres healthy then run the flyway
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+    # reading migration and flyway.config
+    volumes:
+      - ./flyway.conf:/work/flyway.conf
+      - ../server/sql:/work/sql
+    working_dir: /work
+    environment:
+      - FLYWAY_URL=jdbc:postgresql://postgres:5432/${POSTGRES_DB}
+      - FLYWAY_USER=${POSTGRES_USER}
+      - FLYWAY_PASSWORD=${POSTGRES_PASSWORD}
+
+    # Connect directly to Postgres via Compose
+    command: -configFiles=/work/flyway.conf migrate

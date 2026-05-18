@@ -1,0 +1,135 @@
+name: Playwright Tests
+on:
+  push:
+    branches: ["dev"]
+  pull_request:
+    branches: ["dev"]
+  workflow_dispatch:
+    inputs:
+      cross_browser:
+        description: "Run Firefox and WebKit as well"
+        required: false
+        default: "false"
+        type: choice
+        options:
+          - "false"
+          - "true"
+jobs:
+  test:
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+    env:
+      PGHOST: 127.0.0.1
+      PGPORT: "5432"
+      PGDATABASE: ${{ secrets.POSTGRES_DB }}
+      PGUSER: ${{secrets.CI_USER}}
+      PGPASSWORD: ${{secrets.CI_PASSWORD}}
+
+    # starting temporary PostGreSQL container
+    services: 
+      postgres:
+        image: postgres:14
+        env: 
+          # defining credentials for CI database user
+          POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
+          POSTGRES_USER: ${{secrets.CI_USER}}
+          POSTGRES_PASSWORD: ${{secrets.CI_PASSWORD}}
+        ports:
+          - 5432:5432
+        options:  --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20.x" #syn with intergration version
+          # node-version: lts/*
+      - name: Install dependencies 
+        run: npm run setup
+      
+    # adding flyway & migration steps
+      # first to wait for PostgreSQL readiness
+      - name: Wait for PostgreSQL readiness
+        env:
+          POSTGRES_USER: ${{secrets.CI_USER}}
+        run: |
+          for i in {1..10}; do 
+            if docker exec $(docker ps -q --filter name=postgres) pg_isready -h localhost -p 5432 -U "$POSTGRES_USER"; then
+              echo "PostgreSQL is ready."
+              break
+            fi 
+            echo "Waiting for PostgreSQL... attempt $i"
+            sleep 5
+          done
+
+      # installing flyway
+      - name: Install Flyway
+        run: |
+          FLYWAY_VERSION=10.10.0
+          curl -L https://download.red-gate.com/maven/release/com/redgate/flyway/flyway-commandline/$FLYWAY_VERSION/flyway-commandline-$FLYWAY_VERSION-linux-x64.tar.gz | tar -xz
+          sudo mv flyway-$FLYWAY_VERSION /usr/local/share/flyway
+          sudo ln -s /usr/local/share/flyway/flyway /usr/local/bin/flyway
+
+      # running flyway migrations
+      - name: Run Flyway Migrations
+        env:
+          FLYWAY_URL: jdbc:postgresql://localhost:5432/${{ secrets.POSTGRES_DB }}
+          # temporary throwaway values created specifically for the CI process
+          FLYWAY_USER: ${{secrets.CI_USER}}
+          FLYWAY_PASSWORD:  ${{secrets.CI_PASSWORD}}
+          FLYWAY_LOCATIONS: filesystem:server/sql
+        run: |
+          flyway info
+          flyway migrate
+          flyway info
+
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
+
+        # Build TypeScript
+      - name: Build project
+        run: npm run build
+
+      - name: Create temporary env file
+        run:   |
+            touch .env.local
+            echo "POSTGRES_USER=${{ secrets.CI_USER }}" >> .env.local
+            echo "POSTGRES_PASSWORD=${{ secrets.CI_PASSWORD }}" >> .env.local
+            echo "POSTGRES_DB=${{ secrets.POSTGRES_DB }}" >> .env.local
+            echo "PGUSER=${{ secrets.CI_USER }}" >> .env.local
+            echo "PGPASSWORD=${{ secrets.CI_PASSWORD }}" >> .env.local
+            echo "PGPORT=5432" >> .env.local    
+
+      - name: Run Playwright tests (only in Chromium)
+        if: ${{ github.event_name != 'workflow_dispatch' || github.event.inputs.cross_browser != 'true' }}
+        env:
+            PGHOST: localhost
+            PGPORT: "5432"
+            PGDATABASE: ${{ secrets.POSTGRES_DB }}
+            PGUSER: ${{secrets.CI_USER}}
+            PGPASSWORD: ${{secrets.CI_PASSWORD}}
+            FLYWAY_USER: ${{secrets.CI_USER}}
+            FLYWAY_PASSWORD: ${{secrets.CI_PASSWORD}}
+            DATABASE_URL: postgresql://${{secrets.CI_USER}}:${{secrets.CI_PASSWORD}}@localhost:5432/${{ secrets.POSTGRES_DB }}
+        run: npx playwright test -c tests/playwright.config.ts --workers=2
+
+        # Run when we run test by hand
+      - name: Run Playwright tests
+        if: ${{ github.event_name == 'workflow_dispatch' && github.event.input.cross_browser == 'true' || '' }}
+        env:
+          PGHOST: localhost
+          PGPORT: "5432"
+          PGDATABASE: ${{ secrets.POSTGRES_DB }}
+          PGUSER: ${{ secrets.CI_USER }}
+          PGPASSWORD: ${{ secrets.CI_PASSWORD }}
+          FLYWAY_USER: ${{ secrets.CI_USER }}
+          FLYWAY_PASSWORD: ${{ secrets.CI_PASSWORD }}
+          DATABASE_URL: postgresql://${{ secrets.CI_USER }}:${{ secrets.CI_PASSWORD }}@localhost:5432/${{ secrets.POSTGRES_DB }}
+        run: npx playwright test -c tests/playwright.config.ts --workers=2
+
+      - uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 30

@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>User Login</title>
+    <link
+      href="https://fonts.googleapis.com/css?family=Oxanium"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="https://unpkg.com/tailwindcss@3.3.5/src/css/preflight.css">
+    <link href="../../src/styles/auth.css" />
+    <script src="../../src/login.ts" defer type="module"></script>
+  </head>
+  <body>
+      <form class="auth-form">
+        <h2>RoboSim Login</h2>
+        <p id="successful-register">Account creation successful</p>
+        <div class="auth-section">
+          <label for="username">Username: </label>
+          <input
+            type="text"
+            id="username"
+            autocomplete="username"
+            placeholder="Enter your username"
+            required
+          />
+        </div>
+        <div class="auth-section">
+          <label for="password">Password: </label>
+          <input
+            type="password"
+            id="password"
+            autocomplete="current-password"
+            placeholder="Enter your password"
+            required
+          />
+        </div>
+        <button id="login-btn">Login</button>
+        <p id="popupText"></p>
+        <a href="/auth/register/index.html">
+          Do not have an account? Register now!
+        </a>
+      </form>
+  </body>
+</html>

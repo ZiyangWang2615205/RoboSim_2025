@@ -1,0 +1,27 @@
+name: CI Workflow
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  info:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+  
+      - name: Print the name of repository and branch
+        run: |
+          echo "Repository: ${{ github.repository }}"
+          echo "Branch name: ${GITHUB_REF_NAME}"
+          
+      - name: Lists all files in repository
+        run: |
+          echo "ls -R"
+
+      - name: Print final job status
+        if: always()
+        run: |
+          echo "Job status: ${{ job.status }}"

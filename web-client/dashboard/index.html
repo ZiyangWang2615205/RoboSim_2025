@@ -1,0 +1,64 @@
+<!doctype html>
+<html>
+  <head>
+    <title>RoboSim</title>
+    <meta charset="utf-8"/>
+    <link href="https://fonts.googleapis.com/css?family=Oxanium" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://unpkg.com/tailwindcss@3.3.5/src/css/preflight.css">
+    <link rel="stylesheet" src="../src/styles/dashboard.css"/>
+    <script src="../src/dashboard.ts" type="module"></script>
+  </head>
+
+  <body>
+    <navigation-bar></navigation-bar>
+
+    <section class="hero" id="hero">
+      <div class="hero-glow"></div>
+      <h1 class="hero-title">RoboSim</h1>
+      <p class="hero-tagline">Algorithm Testing & Warehouse Simulation</p>
+      <p class="hero-description">
+        Design, test, and compare algorithms in a 3D simulated environment. 
+        Write your algorithm in Python, connect it to the server, and watch the boxes 
+        navigate scenarios in real-time.
+      </p>
+      <div class="hero-actions">
+        <a href="/instructions/" class="hero-btn hero-btn-primary" id="view-instructions">Get Started</a>
+      </div>
+    </section>
+
+    <section class="features" id="features">
+      <div class="feature-card" id="feature-test">
+        <h2 class="feature-title">Develop & Test Algorithms</h2>
+        <p class="feature-text">Our built-in Algorithm Client package automatically handles all of the necessary communication between the backend and server.</p>
+      </div>
+      <div class="feature-card" id="feature-simulate">
+        <h2 class="feature-title">Live Replay/Simulation</h2>
+        <p class="feature-text">Watch how your algorithm performs in real-time, or watch replays of past runs, with multiple perspective options available.</p>
+      </div>
+      <div class="feature-card" id="feature-compete">
+        <h2 class="feature-title">Compete & Compare</h2>
+        <p class="feature-text">Use the leaderboard and graph features to compare the performance of multiple algorithms side-by-side, filtering by scenario, algorithm type, and metric.</p>
+      </div>
+    </section>
+
+    <div class="splash-container">
+      <button id="replays-toggle">
+        <span id="toggle-label">Show Algorithm Runs</span>
+        <span id="toggle-arrow">▼</span>
+      </button>
+      <div id="replays-content" class="hidden">
+        <div id="table-header">
+          <p id="algorithm-number"></p>
+          <algorithm-type-picker></algorithm-type-picker>
+        </div>
+        <div id="scroll-container">
+          <div id="clients" data-testid="clients"></div>
+        </div>
+        <p class="splash-warning" id="no-algorithms">
+          No algorithms are currently running. See the Instructions page to run
+          your own.
+        </p>
+      </div>
+    </div>
+  </body>
+</html>

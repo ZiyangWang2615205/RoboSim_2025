@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "target": "ES6",
+    "noImplicitAny": true,
+    "removeComments": true,
+    "preserveConstEnums": true,
+    "esModuleInterop": true,
+    "sourceMap": true,
+    "lib": ["ES6", "DOM"],
+    "outDir": "../build",
+    "rootDir": "./src",
+    "strict": true,
+    "types": []
+  },
+  "include": ["src/**/*"],
+  "exclude": ["src/**/*.unit.spec.ts", "src/test", "src/e2e"]
+}

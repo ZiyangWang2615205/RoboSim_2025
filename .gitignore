@@ -1,0 +1,38 @@
+.DS_Store
+.idea/
+.vscode/
+
+
+# env variables
+*.env
+.env.local
+
+# build&dependency directories
+node_modules/
+build/
+client_build/
+
+# compiled/generated files
+*.js.map
+*.pyc
+*.db
+*.db-shm
+*.db-wal
+
+# exceptions to not ignore
+!platform-independent-build.js
+!db-init.js
+
+# playwright
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+
+# python virtual environment
+venv/
+2024-RoboSim-dev/
+
+# code coverage log
+coverage/
+.nyc_output/

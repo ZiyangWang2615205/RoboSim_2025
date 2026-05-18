@@ -1,0 +1,112 @@
+# Integration tests are run on every push to the dev branch
+# and on every pull request to the dev branch.
+name: Integration Tests
+
+on:
+  push:
+    branches: ["dev"]
+  pull_request:
+    branches: ["dev"]
+
+jobs:
+  build:
+    name: Integration Tests
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        node-version: [20.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
+    # starting temporary PostgreSQL container for the job
+    services:
+      postgres:
+        image: postgres:14
+        env:
+          POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
+          POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
+          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+        ports:
+          - 5432:5432
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm run setup
+
+    # adding flyway & migration steps
+      # waiting for PostgreSQL
+      - name: Wait for PostgreSQL readiness
+        env:
+          POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
+        run: |
+          for i in {1..10}; do 
+            if docker exec $(docker ps -q --filter name=postgres) pg_isready -h localhost -p 5432 -U "$POSTGRES_USER"; then
+              echo "PostgreSQL is ready."
+              break
+            fi
+            echo "Waiting for PostgreSQL... attempt $i"
+            sleep 5
+          done
+      # installing flyway
+      - name: Install Flyway
+        run: |
+          FLYWAY_VERSION=10.10.0
+          curl -L https://download.red-gate.com/maven/release/com/redgate/flyway/flyway-commandline/$FLYWAY_VERSION/flyway-commandline-$FLYWAY_VERSION-linux-x64.tar.gz | tar -xz
+          sudo mv flyway-$FLYWAY_VERSION /usr/local/share/flyway
+          sudo ln -s /usr/local/share/flyway/flyway /usr/local/bin/flyway
+      # running flyway migrations
+      - name: Run Flyway Migrations
+        env:
+          FLYWAY_URL: jdbc:postgresql://localhost:5432/${{ secrets.POSTGRES_DB }}
+          #ci_user
+          FLYWAY_USER: ${{ secrets.POSTGRES_USER }}
+          FLYWAY_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+        run: flyway -configFiles=infrastructure/flyway.conf migrate
+
+      - name: Build the project
+        run: npm run build
+
+      - name: Type-check test directory
+        run: npm run type-check-tests
+
+      - name: Create temporary env file
+        run: |
+          touch .env.local
+          echo "POSTGRES_USER=${{ secrets.POSTGRES_USER }}" >> .env.local
+          echo "POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}" >> .env.local
+          echo "POSTGRES_DB=${{ secrets.POSTGRES_DB }}" >> .env.local
+          echo "PGUSER=${{ secrets.POSTGRES_USER }}" >> .env.local
+          echo "PGPASSWORD=${{ secrets.POSTGRES_PASSWORD }}" >> .env.local
+          echo "PGPORT=5432" >> .env.local
+
+      - name: Run all tests
+        env:
+          DB_HOST: localhost
+          DB_USER: ${{ secrets.POSTGRES_USER }}
+          DB_PASS: ${{ secrets.POSTGRES_PASSWORD }}
+          DB_NAME: ${{ secrets.POSTGRES_DB }}
+          # including all pg variables
+          PGHOST: localhost
+          #ci_user
+          PGUSER: ${{ secrets.POSTGRES_USER }}
+          PGPASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+          PGDATABASE: ${{ secrets.POSTGRES_DB }}
+          PGPORT: 5432
+
+          # flyway variables
+          FLYWAY_USER: ${{ secrets.POSTGRES_USER }}
+          FLYWAY_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+          FLYWAY_URL: jdbc:postgresql://localhost:5432/${{ secrets.POSTGRES_DB }}
+        run: npm run test
+
+
+  

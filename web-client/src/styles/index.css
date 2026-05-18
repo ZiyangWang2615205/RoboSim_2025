@@ -1,0 +1,41 @@
+@import url("variables.css");
+
+html body {
+  font-family: Oxanium;
+  font-weight: 600;
+  background-color: var(--background-colour);
+
+}
+
+#title {
+  font-size: 64px;
+  font-weight: bolder;
+  color: var(--header-colour);
+  position: absolute;
+  display: block;
+  z-index: 99;
+  left: 2%;
+  top: 2%;
+}
+
+.button {
+  color: var(--header-colour);
+  font-size: 32px;
+  position: absolute;
+  display: block;
+  z-index: 99;
+
+  &:hover {
+    color: var(--link-colour);
+  }
+}
+
+#signup {
+  right: 2%;
+  bottom: 2%;
+}
+
+#login {
+  right: 2%;
+  bottom: 7%;
+}

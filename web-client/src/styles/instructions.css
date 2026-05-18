@@ -1,0 +1,246 @@
+@import url("variables.css");
+
+html body {
+    font-family: Oxanium, sans-serif;
+    font-weight: 600;
+    background-color: var(--background-colour);
+    color: var(--text-colour);
+}
+
+.container {
+    max-width: 980px;
+    margin: 20px auto;
+    padding: 30px;
+    border-radius: 14px;
+    box-shadow: 0px 0px 16px var(--shadow-colour);
+    text-align: center;
+    animation: pulseEffect 4s infinite ease-in;
+}
+
+@keyframes pulseEffect {
+    0% {
+        box-shadow:
+            0px 0px 16px 0px var(--shadow-colour),
+            inset 0px 0px 3px var(--shadow-colour);
+    }
+    50% {
+        box-shadow:
+            0px 0px 16px 12px var(--shadow-colour),
+            inset 0px 0px 3px var(--shadow-colour);
+    }
+    100% {
+        box-shadow:
+            0px 0px 16px 0px var(--shadow-colour),
+            inset 0px 0px 3px var(--shadow-colour);
+    }
+}
+
+h1 {
+    color: var(--header-colour);
+    font-size: 40px;
+    font-weight: 900;
+    margin-bottom: 12px;
+}
+
+h2 {
+    color: var(--neon-blue);
+    font-size: 32px;
+    margin-bottom: 12px;
+}
+
+p {
+    line-height: 1.8;
+}
+
+.docs-link {
+    color: var(--link-colour);
+    text-decoration: none;
+}
+
+.docs-link:hover {
+    text-decoration: underline;
+}
+
+.page-intro {
+    max-width: 900px;
+    margin: 20px auto 10px;
+    text-align: center;
+    line-height: 1.8;
+    font-size: 1.2rem;
+    color: var(--text-colour);
+}
+
+.doc-tabs {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin: 24px 0 18px;
+}
+
+.doc-tab {
+    display: inline-block;
+    padding: 10px 20px;
+    color: var(--neon-blue);
+    background: transparent;
+    border: 2px solid var(--neon-blue);
+    border-radius: 999px;
+    font-family: Oxanium, sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0px 0px 10px rgba(0, 229, 255, 0.35);
+    transition: box-shadow 0.3s ease, transform 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+.doc-tab:hover {
+    box-shadow: 0px 0px 4px 4px var(--neon-blue);
+    transform: scale(1.05);
+}
+
+.doc-tab.active {
+    color: var(--header-colour);
+    border-color: var(--header-colour);
+    box-shadow: 0px 0px 4px 4px var(--header-colour);
+}
+
+.doc-actions {
+    margin-top: 8px;
+    margin-bottom: 22px;
+    text-align: center;
+}
+
+.doc-actions .docs-link {
+    display: inline-block;
+    font-size: 1.05rem;
+}
+
+.doc-content {
+    max-width: 900px;
+    min-height: 240px;
+    margin: 0 auto;
+    padding: 24px;
+    border-radius: 14px;
+    border: 1px solid rgba(255, 0, 204, 0.45);
+    box-shadow:
+        0px 0px 12px rgba(255, 0, 204, 0.22),
+        inset 0px 0px 2px rgba(255, 0, 204, 0.2);
+    background: rgba(20, 0, 30, 0.55);
+    text-align: left;
+    line-height: 1.8;
+    color: var(--text-colour);
+    white-space: pre-wrap;
+}
+
+#show-button {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-top: 5px;
+    color: var(--link-colour);
+    border-radius: 200px;
+    cursor: pointer;
+    box-shadow: 0px 0px 10px var(--link-colour);
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+#show-button:hover {
+    box-shadow: 0px 0px 4px 4px var(--link-colour);
+    transform: scale(1.05);
+}
+
+.doc-content h1,
+.doc-content h2,
+.doc-content h3,
+.doc-content h4 {
+    color: var(--neon-blue);
+    margin-top: 1.2em;
+    margin-bottom: 0.6em;
+    line-height: 1.3;
+}
+
+.doc-content h1 {
+    font-size: 2rem;
+}
+
+.doc-content h2 {
+    font-size: 1.6rem;
+}
+
+.doc-content h3 {
+    font-size: 1.3rem;
+}
+
+.doc-content p {
+    margin-bottom: 1rem;
+}
+
+.doc-content ul,
+.doc-content ol {
+    margin: 0 0 1rem 1.5rem;
+    padding-left: 1rem;
+}
+
+.doc-content li {
+    margin-bottom: 0.5rem;
+}
+
+.doc-content a {
+    color: var(--link-colour);
+    text-decoration: underline;
+}
+
+.doc-content code {
+    display: inline-block;
+    padding: 0.15em 0.5em;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.08);
+    font-size: 1em;
+    line-height: 1.4;
+    font-family: "Courier New", Courier, monospace;
+    vertical-align: baseline;
+}
+
+.doc-content pre {
+    margin: 1rem 0;
+    padding: 16px;
+    border-radius: 12px;
+    background: rgba(0, 0, 0, 0.35);
+    overflow-x: auto;
+}
+
+.doc-content pre code {
+    padding: 0;
+    background: transparent;
+}
+
+.doc-content blockquote {
+    margin: 1rem 0;
+    padding-left: 1rem;
+    border-left: 3px solid var(--header-colour);
+    opacity: 0.95;
+}
+
+.doc-content hr {
+    margin: 1.5rem 0;
+    border: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.doc-content table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0;
+}
+
+.doc-content th,
+.doc-content td {
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 10px 12px;
+    text-align: left;
+}
+
+.doc-content th {
+    color: var(--neon-blue);
+    background: rgba(255, 255, 255, 0.04);
+}
