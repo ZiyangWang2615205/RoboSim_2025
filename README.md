@@ -13,6 +13,18 @@ RoboSim acts as a simulation where self-moving, self-stacking robotic boxes can 
 
 #### If you are a new developer on Robosim, read [this document](documents/Handover.md) for a more detailed explanation
 
+## My Contributions
+
+This was a team project. I was mainly responsible for the infrastructure, deployment pipeline, database integration, testing setup, front end design and part of the algorithm development.
+
+- Built the AWS-based deployment environment and configured the server-client architecture.
+- Set up Nginx as the reverse proxy to route frontend, backend, and WebSocket traffic.
+- Designed and implemented CI/CD workflows for automated testing and deployment.
+- Integrated PostgreSQL and updated the database schema to support project requirements.
+- Built the testing framework and implemented automated tests for the project.
+- Designed and implemented a simple Python-based algorithm as part of the project logic.
+- Created and structured the instruction page to guide users through the application workflow.
+
 ## Project Overview
 
 This year, our team is working on a broad set of improvements across the entire RoboSim project. On the technical side, we are migrating to a new database to improve a critical issue with deployment and are expanding the testing and benchmarking to provide more detailed performance metrics. A key focus is designing and implementing new pathfinding algorithms that allow the Type 2 boxes to move to target locations in the warehouse as efficiently as possible. We are also adding many new features to the website interface, aiming to improve the simulation's usability.
